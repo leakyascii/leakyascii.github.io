@@ -100,41 +100,7 @@
         <div class="container">
             <div class="row">
                 <div class="col s12 m6 grey white-text">
-                    <!--
                     <h5 class="center white-text">Solution</h5>
-                    <pre><code class="left-align">
-class Thirteen
-{
-public:
-    static long long thirt(long long n) {
-        int rems[6] = {1, 10, 9, 12, 3, 4};
-                            
-        int num = 0;
-        int i = 0;
-        while (n != 0) {
-            num += (n%10) * rems[i%6];
-            n /= 10;
-            i++;
-        }
-                            
-        int prev = -1;
-        int curr = num;
-        while (curr != prev) {
-            num = 0;
-            i = 0;
-            prev = curr;
-            while (curr != 0) {
-                num += (curr%10) * rems[i%6];
-                curr /= 10;
-                i++;
-            }
-            curr = num;
-        }
-                            
-        return curr;
-    }
-};        
-            </code></pre> -->
                     <script src="https://gist.github.com/leakyascii/101fe7f1ef6d3483c806002bf8ce6e7c.js"></script>
                 </div>
                 <div class="col s12 m6 teal lighten-3 white-text">
