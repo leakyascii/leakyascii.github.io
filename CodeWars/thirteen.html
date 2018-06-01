@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
+        crossorigin="anonymous">
+
+    <link rel="stylesheet" href="../css/main.css">
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Leaky Ascii</title>
+</head>
+
+<body id="home" class="scrollspy">
+    <!-- Navbar -->
+    <div class="navbar-fixed">
+        <nav class="teal">
+            <div class="container">
+                <div class="nav-wrapper">
+                    <a href="../index.html" class="brand-logo">Leaky Ascii</a>
+                    <a href="" data-target="mobile-nav" class="sidenav-trigger">
+                        <i class="material-icons">menu</i>
+                    </a>
+                    <ul class="right hide-on-med-and-down">
+                        <li>
+                            <a href="../index.html#home">Home</a>
+                        </li>
+                        <li>
+                            <a href="../index.html#search">Search</a>
+                        </li>
+                        <li>
+                            <a href="../index.html#popular">Recent Articles</a>
+                        </li>
+                        <li>
+                            <a href="../index.html#contact">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <ul class="sidenav" id="mobile-nav">
+        <li>
+            <a href="../index.html#home">Home</a>
+        </li>
+        <li>
+            <a href="../index.html#search">Search</a>
+        </li>
+        <li>
+            <a href="../index.html#popular">Recent Articles</a>
+        </li>
+        <li>
+            <a href="../index.html#contact">Contact</a>
+        </li>
+    </ul>
+
+    <h2 class="center">A Rule of Divisibility by 13</h2>
+
+    <!-- Problem Statement-->
+    <section class="section grey lighten-4 center">
+        <div class="container">
+            <div class="row">
+                <div class="col s12 m6">
+                    <h5>Problem Statement</h5>
+                    <blockquote>
+                        <p>When you divide the successive powers of 10 by 13 you get the following remainders of the integer
+                            divisions:
+                            <br> [1, 10, 9, 12, 3, 4].</p>
+                        <br>
+                        <p>Then the whole pattern repeats.
+                            <br>
+                            <br>Hence the following method: Multiply the right most digit of the number with the left most number
+                            in the sequence shown above, the second right most digit to the second left most digit of the
+                            number in the sequence. The cycle goes on and you sum all these products. Repeat this process
+                            until the sequence of sums is stationary.</p>
+                    </blockquote>
+                </div>
+                <div class="col s12 m6 teal lighten-4">
+                    <h5>Example</h5>
+                    <p>What is the remainder when 1234567 is divided by 13?</p>
+                    <code>7×1 + 6×10 + 5×9 + 4×12 + 3×3 + 2×4 + 1×1 = 178</code>
+                    <p>We repeat this with 178:</p>
+                    <code>8x1 + 7x10 + 1x9 = 87</code>
+                    <p>and again with 87:</p>
+                    <code>7x1 + 8x10 = 87</code>
+                    <p>From now on the sequence is stationary and the remainder of 1234567 by 13 is the same as the remainder
+                        of 87 by 13: 9</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section grey lighten-4">
+        <div class="container">
+            <div class="row">
+                <div class="col s12 m6 grey white-text">
+                    <h5 class="center white-text">Solution</h5>
+                    <pre><code class="left-align">
+class Thirteen
+{
+public:
+    static long long thirt(long long n) {
+        int rems[6] = {1, 10, 9, 12, 3, 4};
+                            
+        int num = 0;
+        int i = 0;
+        while (n != 0) {
+            num += (n%10) * rems[i%6];
+            n /= 10;
+            i++;
+        }
+                            
+        int prev = -1;
+        int curr = num;
+        while (curr != prev) {
+            num = 0;
+            i = 0;
+            prev = curr;
+            while (curr != 0) {
+                num += (curr%10) * rems[i%6];
+                curr /= 10;
+                i++;
+            }
+            curr = num;
+        }
+                            
+        return curr;
+    }
+};        
+            </code></pre>
+                </div>
+                <div class="col s12 m6 teal lighten-3 white-text">
+                    <h5 class="center">Explanation</h5>
+                    <p>
+                        &nbsp;&nbsp;&nbsp;&nbsp;Our first step is to figure out a way to split the number into each digit.
+                        <br> &nbsp;&nbsp;&nbsp;&nbsp;The best way to do this is to take the number mod 10. This will return the
+                        right most digit. Now that we have read this digit, we can chop it off by diving the number by 10.
+                        We repeat this process until the number equals 0.
+                        <br> &nbsp;&nbsp;&nbsp;&nbsp; Now that we know how to calculate this for one number, we repeat this process for every number we generate until the same number keeps coming.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <footer class="section teal darken-2 white-text center">
+        <p class="flow-text">Leaky Ascii &copy; 2018</p>
+    </footer>
+
+    <!--JavaScript at end of body for optimized loading-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+
+    <script>
+        // Sidenav
+        const sideNav = document.querySelector('.sidenav');
+        M.Sidenav.init(sideNav, {});
+    </script>
+</body>
+
+</html>
